@@ -60,8 +60,7 @@ following specifications:
 
 3. It should render a `<div>` to the page that contains the text: "I am just happy".
 
-4. It should receive one property called `handleClick` that performs some sort of
-action in response to a click — your choice!
+4. If you open the `index.js` file, you'll see that `SimplerComponent` receives one prop called `handleClick` that is currently `undefined`. Rewrite this prop to perform any action of your choise! Then, make sure `SimplerComponent` can trigger this action when it's clicked on.
 
 When you've finished this component, take a moment to compare it to the previous
 presentational component we wrote. See how much more stable it is? It has no
