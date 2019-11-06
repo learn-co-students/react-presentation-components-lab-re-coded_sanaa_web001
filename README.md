@@ -2,27 +2,77 @@
 
 ## Overview
 
-In this lab, you'll write a presentation component with minimal UI state and as
-a stateless function.
+In this lab, you'll write two components:
+
+1. A presentation component with minimal UI state
+2. A so-called stateless function
 
 ## Overview
 
-Presentational components are also sometimes called "simple" components. Why?
-Because other than rendering themselves, they really don't know how to do much
-else. But, as we've seen, there's something blissful about being "simple" if you
-are a component.
+A truth in programming is this: managing state is **hard**. We humans know
+this: imagine taking lunch orders for a small group of colleagues or friends.
+Say everyone orders a sandwich. If you poll your friends you're going to
+rapidly exceed the human brain's memory capacity:
 
-In this lab, we'll illustrate this principle by building two components: a
-`SimpleComponent` and a `SimplerComponent`. Our `SimpleComponent` will be
-presentational, but it will have a tiny bit of state and therefore be less
-stable than our `SimplerComponent`. Specifically, our `SimpleComponent` will
-experience wild mood fluctuations. Our `SimplerComponent`, meanwhile, will be
-written as a "stateless functional" component and therefore be steadfastly
-happy.
+* "If they have capicola, I want that, but if they don't have it, I want ham
+  with mustard, but only if that mustard is spicy."
+* "PB&amp;J! #simplelife #yolo"
+* "Whatever the vegan options is, unless it's soy-patty. In that case, nothing.
+  I'm a vegan, but that stuff is _awful_."
+
+The same is true for complex applications, especially front end applications.
+If the user is logged in but hasn't selected a checkbox yet then we should
+prompt them to." Keeping up with all that _state_ is hard to do as a
+programmer.
+
+To help React developers signal to _other_ React developers that something on
+the screen is _simple_ and has ***no state*** impact and is also ***not
+affected by state***, React has a concept called a "presentational component"
+or a "simple component." They're called that because, other than rendering
+themselves, or using props data, they really don't know how to do much else. 
+
+Typically they're simply a single function that returns JSX. It's as simple as
+a React component can be. They look something like:
+
+```js
+const ComponentName = props => <div onClick={props.handleClick}>I am just happy.</div>
+```
+
+We have an arrow function that takes one argument, `props` and then renders
+some JSX. That's ***it***. It doesn't get much simpler in React-land.
+
+As a comparison, Components that need to use state look more like this:
+
+```js
+class ComponentName extends Component {
+  constructor(props) {
+    super(props);
+
+    // Initial state here...
+    this.state = {
+    };
+  }
+
+  handleClick = () => {
+    // Probably do some work to update state
+  }
+
+  render() {
+    // Return JSX that renders into HTML
+  }
+}
+```
+
+In this lab, we'll illustrate this principle by building two components:
+
+1. A `SimpleComponent`: Our `SimpleComponent` will be a component with a tiny
+   bit of state. It won't be _quite_ as simple as things could be. It will have
+   a full component class declaration and will need to manage a `state` variable.
+2. A `SimplerComponent`: a "stateless functional" component
 
 ## SimpleComponent
 
-The specs for our `SimpleComponent` are as follows:
+The specs for our `SimpleComponent` require the following:
 
 1. In the `components/SimpleComponent.js` file, create a `SimpleComponent`
 component.
@@ -40,19 +90,9 @@ div.
 callback to the `<div>`'s click event. When clicked, the component's mood should
 toggle between `happy` and `sad` states.
 
-While part of our design, the fact that this component's mood fluctuates when
-clicked makes it a less predictable part of our UI. As our program runs and
-users interact with it, we won't be able to predict what state our component is
-in. Obviously, many components need state in order to create interactive UIs.
-However, as we will see in the second component in this lab, it's good to avoid
-state entirely where possible.
-
 ## SimplerComponent
 
-Although our `SimpleComponent` fits the pattern of a presentational component, the
-fact that it has state makes it unstable. To practice building a more stable
-type of presentational component, let's build a `SimplerComponent` to meet the
-following specifications:
+The specs for our `SimplerComponent` require the following:
 
 1. In the `components/SimplerComponent.js` file, create a `SimplerComponent` component.
 
@@ -60,17 +100,35 @@ following specifications:
 
 3. It should render a `<div>` to the page that contains the text: "I am just happy".
 
-4. If you open the `index.js` file, you'll see that `SimplerComponent` receives one prop called `handleClick` that is currently `undefined`. Rewrite this prop to perform any action of your choice! Then, make sure `SimplerComponent` can trigger this action when it's clicked on.
+4. If you open the `index.js` file, you'll see that `SimplerComponent` receives
+   one prop called `handleClick` that is currently `undefined`. Rewrite this
+   prop to perform any action of your choice! Then, make sure `SimplerComponent`
+   can trigger this action when it's clicked on.
 
-When you've finished this component, take a moment to compare it to the previous
-presentational component we wrote. See how much more stable it is? It has no
-ability to change its output internally. We can always know, based on the props
-that we provide, what type of component it will produce. Note, as well, that
+## Synthesize
+
+When you've finished `SimpleComponent` and `SimplerComponent`, take a moment to
+compare them to each other.
+
+See how `SimplerComponent` has no
+ability to change its output internally? We can always know, based on the props
+that we provide, what type of output it will produce. Note, as well, that
 this doesn't mean that the component lacks interactivity. We can actually
 determine a wide variety of click behaviors on the component just by providing a
-different callback. It's just that the component itself cannot determine its
-behavior. This kind of "simpleness" is actually a good thing because it makes
-our component more predictable and easier to maintain.
+different information via the `props` `Object` when we use the component.
+
+This kind of "simpleness" is actually a good thing because it makes our
+component more predictable and easier to maintain. If we have a single store
+where state is passed from, bubbling downward via `props` to components like
+`SimplerComponent` debugging and maintaining the components is much easier than
+when a component needs to manage state as well.
+
+A good bit of advice would be to start with a simple presentational component
+(like `SimplerComponent`) and _only when_ you _can't_ make it work without
+special state, change it to be a full Component. Developers like to constrain
+themselves to be as simple as possible until they absolutely have to be more
+complex. In the long run, this is a good heuristic for creating code that
+scales and is easy to debug.
 
 ## Resources
 
