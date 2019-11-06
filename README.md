@@ -17,8 +17,8 @@ rapidly exceed the human brain's memory capacity:
 * "If they have capicola, I want that, but if they don't have it, I want ham
   with mustard, but only if that mustard is spicy."
 * "PB&amp;J! #simplelife #yolo"
-* "Whatever the vegan options is, unless it's soy-patty. In that case, nothing.
-  I'm a vegan, but that stuff is _awful_."
+* "I'll have whatever the vegan options is, unless it's soy-patty. In that
+  case, nothing.  I'm a vegan, but that stuff is _awful_."
 
 The same is true for complex applications, especially front end applications.
 If the user is logged in but hasn't selected a checkbox yet then we should
@@ -29,7 +29,7 @@ To help React developers signal to _other_ React developers that something on
 the screen is _simple_ and has ***no state*** impact and is also ***not
 affected by state***, React has a concept called a "presentational component"
 or a "simple component." They're called that because, other than rendering
-themselves, or using props data, they really don't know how to do much else. 
+themselves or using props data, they really don't know how to do much else. 
 
 Typically they're simply a single function that returns JSX. It's as simple as
 a React component can be. They look something like:
@@ -54,7 +54,7 @@ class ComponentName extends Component {
   }
 
   handleClick = () => {
-    // Probably do some work to update state
+    // Probably do some work to update the state
   }
 
   render() {
@@ -114,21 +114,21 @@ See how `SimplerComponent` has no
 ability to change its output internally? We can always know, based on the props
 that we provide, what type of output it will produce. Note, as well, that
 this doesn't mean that the component lacks interactivity. We can actually
-determine a wide variety of click behaviors on the component just by providing a
+determine a wide variety of click behaviors on the component just by providing 
 different information via the `props` `Object` when we use the component.
 
 This kind of "simpleness" is actually a good thing because it makes our
 component more predictable and easier to maintain. If we have a single store
-where state is passed from, bubbling downward via `props` to components like
+from which state is passed, bubbling downward via `props` to components like
 `SimplerComponent` debugging and maintaining the components is much easier than
 when a component needs to manage state as well.
 
 A good bit of advice would be to start with a simple presentational component
 (like `SimplerComponent`) and _only when_ you _can't_ make it work without
-special state, change it to be a full Component. Developers like to constrain
-themselves to be as simple as possible until they absolutely have to be more
-complex. In the long run, this is a good heuristic for creating code that
-scales and is easy to debug.
+container-held state, change it to be a full Component. Developers like to
+constrain themselves to be as simple as possible until they absolutely have to
+be more complex. In the long run, this is a good heuristic for creating code
+that scales and is easy to debug.
 
 ## Resources
 
